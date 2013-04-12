@@ -5,17 +5,10 @@ CampBX
 About
 =====
 
-This library provides python bindings for the `CampBX bitcoin trading platform <http://campbx.com>`_.
-To obtain API access please `see the documenation at CampBX <https://campbx.com/api.php>`_.
-
-.. note::
-  
-  All endpoints that require authentication are using HTTPS.
 
 Installation
 ============
 
-``pip install campbx``
 
 Quick Usage
 ===========
@@ -89,10 +82,11 @@ Endpoints
 Donations
 =========
 
-If you would like to donate some coins, please donate to this address, 1EzebDR5wMvnSoQ5KQ1zF6UGcYr8qZSF4v
 
 License
 =======
+
+-- License Inherited from CampBX --
 
 `MIT License <http://www.opensource.org/licenses/mit-license.php>`_
 
