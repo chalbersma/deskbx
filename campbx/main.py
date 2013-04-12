@@ -5,7 +5,7 @@ from campbx import CampBX
 
 root = Tk()
 
-#app = GUI(root)
+app = GUI(root)
 
 root.title("Post Ninja by CSDT")
 root.mainloop()
