@@ -3,6 +3,7 @@ import urllib.request
 import logging
 import time
 import datetime
+import csv
 
 
 class CampBX(object):
@@ -35,10 +36,15 @@ class CampBX(object):
     def historical(self):
         now = int(time.time())
         hourago = now - 60*30
-        xhistoryurl = "http://bitcoincharts.com/t/trades.csv?symbol=CBXUSD&end="+str(hourago)
-        print(xhistoryurl)
+        xhistoryurl = "http://bitcoincharts.com/t/markets.json"
         request = urllib.request.Request(xhistoryurl)
-        response = urllib.request.urlopen(request)
-        print ((response.read().decode('utf-8')))
-        
-        return
+        try:
+            response = urllib.request.urlopen(request)
+        except urllib.request.URLError as e:
+            print ("Couldn't Pull Data")
+        else:
+            xhistory = json.loads((response.read().decode('utf-8')))
+            for i in xhistory[:] : 
+                if (i['symbol'] == 'cbxUSD'):
+                    camphistory=i
+        return camphistory

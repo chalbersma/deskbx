@@ -1,9 +1,13 @@
 from tkinter import *
+from tkinter.ttk import *
 import datetime
 import os
 from campbx import CampBX
 
 class GUI:
+    
+    connection = CampBX()
+
     def __init__(self, master):
 
         self.upfromme=master
@@ -25,9 +29,9 @@ class GUI:
         
         #Current Orders Label
         self.bidsdesc=Label(frame,text="Open Bids")
-        self.bidsdesc.grid(row=4, column=0, columnspan=2)
+        self.bidsdesc.grid(row=2, column=0, columnspan=2)
         self.asksdesc=Label(frame,text="Open Asks")
-        self.asksdesc.grid(row=4, column=2, columnspan=2)
+        self.asksdesc.grid(row=2, column=2, columnspan=2)
         
         #Current Price Label
         self.priceticker=Label(frame,text="Last...")
@@ -40,37 +44,74 @@ class GUI:
         
         #Top 3 Bids
         self.bids1=Label(frame,text="$0x0")
-        self.bids1.grid(row=5, column=0, columnspan=2)
+        self.bids1.grid(row=3, column=0, columnspan=2)
         self.bids2=Label(frame,text="$0x0")
-        self.bids2.grid(row=6, column=0, columnspan=2)
+        self.bids2.grid(row=4, column=0, columnspan=2)
         self.bids3=Label(frame,text="$0x0")
-        self.bids3.grid(row=7, column=0, columnspan=2)
+        self.bids3.grid(row=5, column=0, columnspan=2)
         
         #Top 3 Asks
         self.asks1=Label(frame,text="$0x0")
-        self.asks1.grid(row=5, column=2, columnspan=2)
+        self.asks1.grid(row=3, column=2, columnspan=2)
         self.asks2=Label(frame,text="$0x0")
-        self.asks2.grid(row=6, column=2, columnspan=2)
+        self.asks2.grid(row=4, column=2, columnspan=2)
         self.asks3=Label(frame,text="$0x0")
-        self.asks3.grid(row=7, column=2, columnspan=2)
+        self.asks3.grid(row=5, column=2, columnspan=2)
+        
+        # Historical Data
+        self.historydesc=Label(frame,text="Market Data")
+        self.historydesc.grid(row=0, column=5, columnspan=3)
+        
+        # Items
+        self.avg=Label(frame,text="Trade 1")
+        self.avgdesc=Label(frame,text="24HR AVG")
+        self.avgdesc.grid(row=1, column=5)
+        self.avg.grid(row=1, column=6, columnspan=2)
+        
+        self.vol=Label(frame,text="Trade 1")
+        self.voldesc=Label(frame,text="VOL USD")
+        self.voldesc.grid(row=2, column=5)
+        self.vol.grid(row=2, column=6, columnspan=2)
+        
+        self.high=Label(frame,text="Trade 1")
+        self.highdesc=Label(frame,text="HIGH")
+        self.highdesc.grid(row=3, column=5)
+        self.high.grid(row=3, column=6, columnspan=2)
+        
+        self.low=Label(frame,text="Trade 1")
+        self.lowdesc=Label(frame,text="LOW")
+        self.lowdesc.grid(row=4, column=5)
+        self.low.grid(row=4, column=6, columnspan=2)
+        
+        self.volBTC=Label(frame,text="Trade 1")
+        self.volBTCdesc=Label(frame,text="VOL BTC")
+        self.volBTCdesc.grid(row=5, column=5)
+        self.volBTC.grid(row=5, column=6, columnspan=2)
         
         #Update Button (Runs Update)
         self.priceupdate=Button(frame, text="Update", command=self.update())
-        self.priceupdate.grid(row=2, columnspan=3)
+        self.priceupdate.grid(row=8, columnspan=4)
         
-        self.note=Label(frame,text="Prices pulled from Campbx")
-        self.note.grid(row=3, columnspan=3)
+        self.note=Label(frame,text="Prices from Campbx")
+        self.note.grid(row=9, columnspan=4)
+        
+        #Market Button (Runs Updatehistory)
+        self.marketupdate=Button(frame,text="Update", command=self.updatehistory())
+        self.marketupdate.grid(row=8, column=5, columnspan=4)
+        
+        self.note2=Label(frame,text="Market Data from \nbitcoincharts.com")
+        self.note2.grid(row=9, column=5, columnspan=4)
         
     def update(self):
         self.updateprice()
         self.updateorders()
-        self.updatehistory()
+        #self.updatehistory()
         return
         
         
     def updateprice(self):
-        connection = CampBX(self)
-        price = connection.xticker_print()
+        self.connection = CampBX(self)
+        price = self.connection.xticker_print()
         # UPdate Labels
         self.priceticker.config(text=price["Last Trade"])
         self.priceticker.update()
@@ -83,8 +124,8 @@ class GUI:
         return
         
     def updateorders(self):
-        connection = CampBX(self)
-        orders = connection.xdepth_print()
+        self.connection = CampBX(self)
+        orders = self.connection.xdepth_print()
         #   "$" + str(orders["Asks"][-2][0]) + " : " + str(orders["Asks"][-2][1]))
         #   Dollar Sign + Order in $ (rounded two 2) + Volume in Bitcoin (rounded two too
         #Update Price Tables
@@ -106,8 +147,18 @@ class GUI:
         return
         
     def updatehistory(self):
-        connection = CampBX(self)
-        connection.historical()
-        
+        self.connection = CampBX(self)
+        history = self.connection.historical()
+        self.avg.config(text="$" + str(round(history["avg"],2)))
+        self.avg.update()
+        self.vol.config(text="$" + str(round(history["currency_volume"],2)))
+        self.vol.update()
+        self.high.config(text="$" + str(round(history["high"],2)))
+        self.high.update()
+        self.low.config(text="$" + str(round(history["low"],2)))
+        self.low.update()
+        self.volBTC.config(text="B" + str(round(history["volume"],2)))
+        self.volBTC.update()
+
         return
         
