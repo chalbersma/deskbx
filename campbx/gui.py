@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter.ttk import *
+#from tkinter.ttk import *
 import datetime
 import os
 from campbx import CampBX
@@ -21,25 +21,25 @@ class GUI:
 
         #Description Label
         self.pricetickerdesc=Label(frame,text="Price")
-        self.pricetickerdesc.grid(row=0)
+        self.pricetickerdesc.grid(row=0, sticky='W')
         self.biddesc=Label(frame,text="Bid")
-        self.biddesc.grid(row=0,column=1)
+        self.biddesc.grid(row=0,column=1, columnspan=2)
         self.biddesc=Label(frame,text="Ask")
-        self.biddesc.grid(row=0,column=2)
+        self.biddesc.grid(row=0,column=3, sticky='E')
         
         #Current Orders Label
         self.bidsdesc=Label(frame,text="Open Bids")
-        self.bidsdesc.grid(row=2, column=0, columnspan=2)
+        self.bidsdesc.grid(row=2, column=0, columnspan=2, sticky='W')
         self.asksdesc=Label(frame,text="Open Asks")
-        self.asksdesc.grid(row=2, column=2, columnspan=2)
+        self.asksdesc.grid(row=2, column=2, columnspan=2, sticky='E')
         
         #Current Price Label
         self.priceticker=Label(frame,text="Last...")
-        self.priceticker.grid(row=1)
+        self.priceticker.grid(row=1, sticky='W')
         self.bidticker=Label(frame,text="Bid...")
-        self.bidticker.grid(row=1,column=1)
+        self.bidticker.grid(row=1,column=1, columnspan=2)
         self.askticker=Label(frame,text="Ask...")
-        self.askticker.grid(row=1,column=2)
+        self.askticker.grid(row=1,column=3, sticky='E')
         
         
         #Top 3 Bids
@@ -105,7 +105,6 @@ class GUI:
     def update(self):
         self.updateprice()
         self.updateorders()
-        #self.updatehistory()
         return
         
         
