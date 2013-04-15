@@ -66,33 +66,33 @@ class GUI:
         
         # Historical Data
         self.historydesc=Label(histframe,text="Market Data")
-        self.historydesc.grid(row=0, columnspan=3)
+        self.historydesc.grid(row=0, columnspan=4)
         
         # Items
         self.avg=Label(histframe,text="Trade 1")
         self.avgdesc=Label(histframe,text="24HR AVG")
-        self.avgdesc.grid(row=1, column=0)
-        self.avg.grid(row=1, column=2, columnspan=2)
+        self.avgdesc.grid(row=1, column=0, sticky='W')
+        self.avg.grid(row=1, column=2, columnspan=2, sticky='E')
         
         self.vol=Label(histframe,text="Trade 1")
         self.voldesc=Label(histframe,text="VOL USD")
-        self.voldesc.grid(row=2, column=0)
-        self.vol.grid(row=2, column=2, columnspan=2)
+        self.voldesc.grid(row=2, column=0, sticky='W')
+        self.vol.grid(row=2, column=2, columnspan=2, sticky='E')
         
         self.high=Label(histframe,text="Trade 1")
         self.highdesc=Label(histframe,text="HIGH")
-        self.highdesc.grid(row=3, column=0)
-        self.high.grid(row=3, column=2, columnspan=2)
+        self.highdesc.grid(row=3, column=0, sticky='W')
+        self.high.grid(row=3, column=2, columnspan=2, sticky='E')
         
         self.low=Label(histframe,text="Trade 1")
         self.lowdesc=Label(histframe,text="LOW")
-        self.lowdesc.grid(row=4, column=0)
-        self.low.grid(row=4, column=2, columnspan=2)
+        self.lowdesc.grid(row=4, column=0, sticky='W')
+        self.low.grid(row=4, column=2, columnspan=2, sticky='E')
         
         self.volBTC=Label(histframe,text="Trade 1")
         self.volBTCdesc=Label(histframe,text="VOL BTC")
-        self.volBTCdesc.grid(row=5, column=0)
-        self.volBTC.grid(row=5, column=2, columnspan=2)
+        self.volBTCdesc.grid(row=5, column=0, sticky='W')
+        self.volBTC.grid(row=5, column=2, columnspan=2, sticky='E')
         
         #No Longer Needed
         #Update Button (Runs Update)
