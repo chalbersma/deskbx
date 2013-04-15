@@ -13,98 +13,105 @@ class GUI:
         self.upfromme=master
 
         frame = Frame(master)
-        frame.grid(column=0, row=0, columnspan=4)
+        frame.grid(column=0, row=0)
+        
+        # Adding Content Frames
+        cmframe = LabelFrame(frame, text="Current Market", padx=5, pady=5)
+        histframe = LabelFrame(frame, text="Historical Data", padx=5, pady=5)
+        cmframe.grid(column=0)
+        histframe.grid(row=0, column=1)
 
         #Menu
         self.menu = Menu(master)
         master.config(menu = self.menu)
 
         #Description Label
-        self.pricetickerdesc=Label(frame,text="Price")
+        self.pricetickerdesc=Label(cmframe,text="Price")
         self.pricetickerdesc.grid(row=0, sticky='W')
-        self.biddesc=Label(frame,text="Bid")
+        self.biddesc=Label(cmframe,text="Bid")
         self.biddesc.grid(row=0,column=1, columnspan=2)
-        self.biddesc=Label(frame,text="Ask")
+        self.biddesc=Label(cmframe,text="Ask")
         self.biddesc.grid(row=0,column=3, sticky='E')
         
         #Current Orders Label
-        self.bidsdesc=Label(frame,text="Open Bids")
+        self.bidsdesc=Label(cmframe,text="Open Bids")
         self.bidsdesc.grid(row=2, column=0, columnspan=2, sticky='W')
-        self.asksdesc=Label(frame,text="Open Asks")
+        self.asksdesc=Label(cmframe,text="Open Asks")
         self.asksdesc.grid(row=2, column=2, columnspan=2, sticky='E')
         
         #Current Price Label
-        self.priceticker=Label(frame,text="Last...")
+        self.priceticker=Label(cmframe,text="Last...")
         self.priceticker.grid(row=1, sticky='W')
-        self.bidticker=Label(frame,text="Bid...")
+        self.bidticker=Label(cmframe,text="Bid...")
         self.bidticker.grid(row=1,column=1, columnspan=2)
-        self.askticker=Label(frame,text="Ask...")
+        self.askticker=Label(cmframe,text="Ask...")
         self.askticker.grid(row=1,column=3, sticky='E')
         
         
         #Top 3 Bids
-        self.bids1=Label(frame,text="$0x0")
+        self.bids1=Label(cmframe,text="$0x0")
         self.bids1.grid(row=3, column=0, columnspan=2, sticky='W')
-        self.bids2=Label(frame,text="$0x0")
+        self.bids2=Label(cmframe,text="$0x0")
         self.bids2.grid(row=4, column=0, columnspan=2, sticky='W')
-        self.bids3=Label(frame,text="$0x0")
+        self.bids3=Label(cmframe,text="$0x0")
         self.bids3.grid(row=5, column=0, columnspan=2, sticky='W')
         
         #Top 3 Asks
-        self.asks1=Label(frame,text="$0x0")
+        self.asks1=Label(cmframe,text="$0x0")
         self.asks1.grid(row=3, column=2, columnspan=2, sticky='E')
-        self.asks2=Label(frame,text="$0x0")
+        self.asks2=Label(cmframe,text="$0x0")
         self.asks2.grid(row=4, column=2, columnspan=2, sticky='E')
-        self.asks3=Label(frame,text="$0x0")
+        self.asks3=Label(cmframe,text="$0x0")
         self.asks3.grid(row=5, column=2, columnspan=2, sticky='E')
         
         # Historical Data
-        self.historydesc=Label(frame,text="Market Data")
-        self.historydesc.grid(row=0, column=5, columnspan=3)
+        self.historydesc=Label(histframe,text="Market Data")
+        self.historydesc.grid(row=0, columnspan=3)
         
         # Items
-        self.avg=Label(frame,text="Trade 1")
-        self.avgdesc=Label(frame,text="24HR AVG")
-        self.avgdesc.grid(row=1, column=5)
-        self.avg.grid(row=1, column=6, columnspan=2)
+        self.avg=Label(histframe,text="Trade 1")
+        self.avgdesc=Label(histframe,text="24HR AVG")
+        self.avgdesc.grid(row=1, column=0)
+        self.avg.grid(row=1, column=2, columnspan=2)
         
-        self.vol=Label(frame,text="Trade 1")
-        self.voldesc=Label(frame,text="VOL USD")
-        self.voldesc.grid(row=2, column=5)
-        self.vol.grid(row=2, column=6, columnspan=2)
+        self.vol=Label(histframe,text="Trade 1")
+        self.voldesc=Label(histframe,text="VOL USD")
+        self.voldesc.grid(row=2, column=0)
+        self.vol.grid(row=2, column=2, columnspan=2)
         
-        self.high=Label(frame,text="Trade 1")
-        self.highdesc=Label(frame,text="HIGH")
-        self.highdesc.grid(row=3, column=5)
-        self.high.grid(row=3, column=6, columnspan=2)
+        self.high=Label(histframe,text="Trade 1")
+        self.highdesc=Label(histframe,text="HIGH")
+        self.highdesc.grid(row=3, column=0)
+        self.high.grid(row=3, column=2, columnspan=2)
         
-        self.low=Label(frame,text="Trade 1")
-        self.lowdesc=Label(frame,text="LOW")
-        self.lowdesc.grid(row=4, column=5)
-        self.low.grid(row=4, column=6, columnspan=2)
+        self.low=Label(histframe,text="Trade 1")
+        self.lowdesc=Label(histframe,text="LOW")
+        self.lowdesc.grid(row=4, column=0)
+        self.low.grid(row=4, column=2, columnspan=2)
         
-        self.volBTC=Label(frame,text="Trade 1")
-        self.volBTCdesc=Label(frame,text="VOL BTC")
-        self.volBTCdesc.grid(row=5, column=5)
-        self.volBTC.grid(row=5, column=6, columnspan=2)
+        self.volBTC=Label(histframe,text="Trade 1")
+        self.volBTCdesc=Label(histframe,text="VOL BTC")
+        self.volBTCdesc.grid(row=5, column=0)
+        self.volBTC.grid(row=5, column=2, columnspan=2)
         
         #No Longer Needed
         #Update Button (Runs Update)
         #self.priceupdate=Button(frame, text="Update", command=self.update())
         #self.priceupdate.grid(row=8, columnspan=4)
         
-        self.note=Label(frame,text="Prices from Campbx")
-        self.note.grid(row=9, columnspan=4)
+        self.note=Label(cmframe,text="Updated Every Minute\nfrom Campbx.com")
+        self.note.grid(row=8, columnspan=4)
         
         #Market Button (Runs Updatehistory)
-        self.marketupdate=Button(frame,text="Update", command=self.updatehistory())
-        self.marketupdate.grid(row=8, column=5, columnspan=4)
+        #self.marketupdate=Button(histframe,text="Update", command=self.updatehistory())
+        #self.marketupdate.grid(row=8, column=0, columnspan=4)
         
-        self.note2=Label(frame,text="Market Data from \nbitcoincharts.com")
-        self.note2.grid(row=9, column=5, columnspan=4)
+        self.note2=Label(histframe,text="Updated Every 16 Minutes \nfrom bitcoincharts.com")
+        self.note2.grid(row=8, column=0, columnspan=4)
         
         # Set update loop in motion
         self.update()
+        self.updatehistory()
         
     def update(self):
         print ("Updating Prices")
@@ -152,6 +159,7 @@ class GUI:
         return
         
     def updatehistory(self):
+        print("Updating History")
         self.connection = CampBX(self)
         history = self.connection.historical()
         self.avg.config(text="$" + str(round(history["avg"],2)))
@@ -162,8 +170,9 @@ class GUI:
         self.high.update()
         self.low.config(text="$" + str(round(history["low"],2)))
         self.low.update()
-        self.volBTC.config(text="B" + str(round(history["volume"],2)))
+        self.volBTC.config(text=str(round(history["volume"],2)) + "BTC")
         self.volBTC.update()
-
+        self.upfromme.after(960000, self.updatehistory)
+        
         return
         
