@@ -44,19 +44,19 @@ class GUI:
         
         #Top 3 Bids
         self.bids1=Label(frame,text="$0x0")
-        self.bids1.grid(row=3, column=0, columnspan=2)
+        self.bids1.grid(row=3, column=0, columnspan=2, sticky='W')
         self.bids2=Label(frame,text="$0x0")
-        self.bids2.grid(row=4, column=0, columnspan=2)
+        self.bids2.grid(row=4, column=0, columnspan=2, sticky='W')
         self.bids3=Label(frame,text="$0x0")
-        self.bids3.grid(row=5, column=0, columnspan=2)
+        self.bids3.grid(row=5, column=0, columnspan=2, sticky='W')
         
         #Top 3 Asks
         self.asks1=Label(frame,text="$0x0")
-        self.asks1.grid(row=3, column=2, columnspan=2)
+        self.asks1.grid(row=3, column=2, columnspan=2, sticky='E')
         self.asks2=Label(frame,text="$0x0")
-        self.asks2.grid(row=4, column=2, columnspan=2)
+        self.asks2.grid(row=4, column=2, columnspan=2, sticky='E')
         self.asks3=Label(frame,text="$0x0")
-        self.asks3.grid(row=5, column=2, columnspan=2)
+        self.asks3.grid(row=5, column=2, columnspan=2, sticky='E')
         
         # Historical Data
         self.historydesc=Label(frame,text="Market Data")
@@ -88,9 +88,10 @@ class GUI:
         self.volBTCdesc.grid(row=5, column=5)
         self.volBTC.grid(row=5, column=6, columnspan=2)
         
+        #No Longer Needed
         #Update Button (Runs Update)
-        self.priceupdate=Button(frame, text="Update", command=self.update())
-        self.priceupdate.grid(row=8, columnspan=4)
+        #self.priceupdate=Button(frame, text="Update", command=self.update())
+        #self.priceupdate.grid(row=8, columnspan=4)
         
         self.note=Label(frame,text="Prices from Campbx")
         self.note.grid(row=9, columnspan=4)
@@ -102,9 +103,14 @@ class GUI:
         self.note2=Label(frame,text="Market Data from \nbitcoincharts.com")
         self.note2.grid(row=9, column=5, columnspan=4)
         
+        # Set update loop in motion
+        self.update()
+        
     def update(self):
+        print ("Updating Prices")
         self.updateprice()
         self.updateorders()
+        self.upfromme.after(60000, self.update)
         return
         
         
