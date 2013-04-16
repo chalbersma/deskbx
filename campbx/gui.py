@@ -7,7 +7,10 @@ from campbx import CampBX
 class GUI:
     
     connection = CampBX()
-
+    currentmid = 0
+    currentbid = 0
+    currentask = 0
+    
     def __init__(self, master):
 
         self.upfromme=master
@@ -20,6 +23,9 @@ class GUI:
         self.histframe = LabelFrame(frame, text="Historical Data", padx=5, pady=5)
         self.cmframe.grid(column=0)
         self.histframe.grid(row=0, column=1)
+        
+        self.pressframe = LabelFrame(frame, text="Market Pressure", padx=5, pady=5)
+        self.pressframe.grid(row=1)
 
         #Menu
         self.menu = Menu(master)
@@ -36,6 +42,14 @@ class GUI:
         # Set update loop in motion
         self.update()
         self.updatehistory()
+        
+    def drawpress(self):
+        self.currentmid = Label(self.pressframe, text="Median...")
+        self.biddesc = Label(self.pressframe, text="Bids")
+        self.askdesc = Label(self.pressframe, text="Asks")
+        self.currentmid.grid(row=0, columnspan=5)
+        self.biddesc.grid(row=1, columnspan=2)
+        self.askdesc.grid(row=1, column=3, columnspan=2)
         
     def drawcm(self):
         #Description Label
@@ -144,11 +158,16 @@ class GUI:
         # UPdate Labels
         self.priceticker.config(text=price["Last Trade"])
         self.priceticker.update()
+        
+        self.currentbid = float(price["Best Bid"])
         self.bidticker.config(text=price["Best Bid"])
         self.bidticker.update()
+        
+        self.currentask = float(price["Best Ask"])
         self.askticker.config(text=price["Best Ask"])
         self.askticker.update()
         
+        self.currentmid = (self.currentbid + self.currentask) / 2.0
         
         return
         
@@ -173,6 +192,8 @@ class GUI:
         self.bids3.config(text="$" + str(round(orders["Bids"][2][0],2)) + " : " + str(round(orders["Bids"][2][1],2)))
         self.bids3.update()
         
+        self.analyzedepth(orders)
+        
         return
         
     def updatehistory(self):
@@ -189,7 +210,57 @@ class GUI:
         self.low.update()
         self.volBTC.config(text=str(round(history["volume"],2)) + "BTC")
         self.volBTC.update()
+        
         self.upfromme.after(960000, self.updatehistory)
         
         return
         
+    def analyzedepth(self, ordertable):
+        # Definition "Delta $" : [ Orders, BTC ] 
+        pressure= { "+1" : [0,0] , "+5" : [0,0], "+10" : [0,0], "+25" : [0,0], "+50" : [0,0],\
+                    "-1" : [0,0] , "-5" : [0,0], "-10" : [0,0], "-25" : [0,0], "-50" : [0,0]}
+        
+        # How To:
+        #print (pressure)
+        #pressure["+1/2"][0]+=1
+        #pressure["+1/2"][1]+=3
+        #print (pressure)
+        
+        for i in ordertable["Asks"][::-1] :
+            distance = float(i[0]) - float(self.currentmid)
+            if distance < 1:
+                print ("Hits One")
+                pressure["+1"][0]+=1
+                pressure["+1"][1]+=i[1]
+            if distance < 5:
+                pressure["+5"][0]+=1
+                pressure["+5"][1]+=i[1]
+            if distance < 10:
+                pressure["+10"][0]+=1
+                pressure["+10"][1]+=i[1]
+            if distance < 25:
+                pressure["+25"][0]+=1
+                pressure["+25"][1]+=i[1]
+            if distance < 50:
+                pressure["+50"][0]+=1
+                pressure["+50"][1]+=i[1]
+                
+        for i in ordertable["Bids"][:] :
+            distance = float(self.currentmid) - float(i[0])
+            if distance < 1:
+                pressure["-1"][0]+=1
+                pressure["-1"][1]+=i[1]
+            if distance < 5:
+                pressure["-5"][0]+=1
+                pressure["-5"][1]+=i[1]
+            if distance < 10:
+                pressure["-10"][0]+=1
+                pressure["-10"][1]+=i[1]
+            if distance < 25:
+                pressure["-25"][0]+=1
+                pressure["-25"][1]+=i[1]
+            if distance < 50:
+                pressure["-50"][0]+=1
+                pressure["-50"][1]+=i[1]
+        
+        return pressure
