@@ -38,6 +38,7 @@ class GUI:
         #draw frames
         self.drawcm()
         self.drawhist()
+        self.drawpress()
         
         # Set update loop in motion
         self.update()
@@ -50,6 +51,39 @@ class GUI:
         self.currentmid.grid(row=0, columnspan=5)
         self.biddesc.grid(row=1, columnspan=2)
         self.askdesc.grid(row=1, column=3, columnspan=2)
+        
+        self.bidusddesc = Label(self.pressframe, text="Price USD")
+        self.bidbtcdesc = Label(self.pressframe, text="BTC Vol")
+        self.bidusddesc.grid(row=2, column=0)
+        self.bidbtcdesc.grid(row=2, column=1)
+        self.askusddesc = Label(self.pressframe, text="Price USD")
+        self.askbtcdesc = Label(self.pressframe, text="BTC Vol")
+        self.askusddesc.grid(row=2, column=3)
+        self.askbtcdesc.grid(row=2, column=4)
+        
+        self.bidlt1  = Label(self.pressframe, text="Price USD")
+        self.bidlt5  = Label(self.pressframe, text="Price USD")
+        self.bidlt10 = Label(self.pressframe, text="Price USD")
+        self.bidlt25 = Label(self.pressframe, text="Price USD")
+        self.bidlt50 = Label(self.pressframe, text="Price USD")
+        
+        self.bidv1  = Label(self.pressframe, text="Vol BTC")
+        self.bidv5  = Label(self.pressframe, text="Vol BTC")
+        self.bidv10 = Label(self.pressframe, text="Vol BTC")
+        self.bidv25 = Label(self.pressframe, text="Vol BTC")
+        self.bidv50 = Label(self.pressframe, text="Vol BTC")
+        
+        self.asklt1  = Label(self.pressframe, text="Price USD")
+        self.asklt5  = Label(self.pressframe, text="Price USD")
+        self.asklt10 = Label(self.pressframe, text="Price USD")
+        self.asklt25 = Label(self.pressframe, text="Price USD")
+        self.asklt50 = Label(self.pressframe, text="Price USD")
+        
+        self.askv1  = Label(self.pressframe, text="Vol BTC")
+        self.askv5  = Label(self.pressframe, text="Vol BTC")
+        self.askv10  = Label(self.pressframe, text="Vol BTC")
+        self.askv25  = Label(self.pressframe, text="Vol BTC")
+        self.askv50  = Label(self.pressframe, text="Vol BTC")
         
     def drawcm(self):
         #Description Label
@@ -229,7 +263,6 @@ class GUI:
         for i in ordertable["Asks"][::-1] :
             distance = float(i[0]) - float(self.currentmid)
             if distance < 1:
-                print ("Hits One")
                 pressure["+1"][0]+=1
                 pressure["+1"][1]+=i[1]
             if distance < 5:
