@@ -25,11 +25,7 @@ class GUI:
         self.menu = Menu(master)
         master.config(menu = self.menu)
 
-
-        
-
-        
-
+        #draw frames
         self.drawcm()
         self.drawhist()
         # Set update loop in motion
