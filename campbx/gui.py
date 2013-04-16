@@ -24,13 +24,19 @@ class GUI:
         #Menu
         self.menu = Menu(master)
         master.config(menu = self.menu)
-
+        self.filemenu = Menu(self.menu)
+        self.menu.add_cascade(label="File", menu=self.filemenu)
+        self.filemenu.add_command(label="Exit", command=quit)
+        
+        
         #draw frames
         self.drawcm()
         self.drawhist()
+        
         # Set update loop in motion
         self.update()
         self.updatehistory()
+        
     def drawcm(self):
         #Description Label
         self.pricetickerdesc=Label(self.cmframe,text="Price")
