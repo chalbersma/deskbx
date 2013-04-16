@@ -34,6 +34,7 @@ class CampBX(object):
         return xdepth
         
     def historical(self):
+        #Pulls information from bitcoincharts.com
         now = int(time.time())
         hourago = now - 60*30
         xhistoryurl = "http://bitcoincharts.com/t/markets.json"
