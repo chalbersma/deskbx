@@ -1,5 +1,5 @@
 from tkinter import *
-#from tkinter.ttk import *
+from tkinter.ttk import *
 import datetime
 import os
 from campbx import CampBX
@@ -19,13 +19,13 @@ class GUI:
         frame.grid(column=0, row=0)
         
         # Adding Content Frames
-        self.cmframe = LabelFrame(frame, text="Current Market", padx=5, pady=5)
-        self.histframe = LabelFrame(frame, text="Historical Data", padx=5, pady=5)
+        self.cmframe = LabelFrame(frame, text="Current Market")
+        self.histframe = LabelFrame(frame, text="Historical Data")
         self.cmframe.grid(column=0)
         self.histframe.grid(row=0, column=1)
         
-        self.pressframe = LabelFrame(frame, text="Market Pressure", padx=5, pady=5)
-        self.pressframe.grid(row=1)
+        self.pressframe = LabelFrame(frame, text="Market Pressure")
+        self.pressframe.grid(row=1, columnspan=2)
 
         #Menu
         self.menu = Menu(master)
@@ -45,45 +45,100 @@ class GUI:
         self.updatehistory()
         
     def drawpress(self):
-        self.currentmid = Label(self.pressframe, text="Median...")
+        self.currentmidlbl = Label(self.pressframe, text="Median...")
         self.biddesc = Label(self.pressframe, text="Bids")
         self.askdesc = Label(self.pressframe, text="Asks")
-        self.currentmid.grid(row=0, columnspan=5)
+        self.currentmidlbl.grid(row=0, columnspan=6)
         self.biddesc.grid(row=1, columnspan=2)
         self.askdesc.grid(row=1, column=3, columnspan=2)
         
-        self.bidusddesc = Label(self.pressframe, text="Price USD")
+        self.bidusddesc = Label(self.pressframe, text="Below by $")
         self.bidbtcdesc = Label(self.pressframe, text="BTC Vol")
+        self.bidnumdesc = Label(self.pressframe, text="Orders")
         self.bidusddesc.grid(row=2, column=0)
         self.bidbtcdesc.grid(row=2, column=1)
-        self.askusddesc = Label(self.pressframe, text="Price USD")
+        self.bidnumdesc.grid(row=2, column=2)
+        self.askusddesc = Label(self.pressframe, text="Above by $")
         self.askbtcdesc = Label(self.pressframe, text="BTC Vol")
+        self.asknumdesc = Label(self.pressframe, text="Orders")
+        self.asknumdesc.grid(row=2, column=5)
         self.askusddesc.grid(row=2, column=3)
         self.askbtcdesc.grid(row=2, column=4)
         
-        self.bidlt1  = Label(self.pressframe, text="Price USD")
-        self.bidlt5  = Label(self.pressframe, text="Price USD")
-        self.bidlt10 = Label(self.pressframe, text="Price USD")
-        self.bidlt25 = Label(self.pressframe, text="Price USD")
-        self.bidlt50 = Label(self.pressframe, text="Price USD")
+        # Bids USD
+        self.bidlt1  = Label(self.pressframe, text="$ 01")
+        self.bidlt1.grid(row=3, column=0)
+        self.bidlt5  = Label(self.pressframe, text="$ 05")
+        self.bidlt5.grid(row=4, column=0)
+        self.bidlt10 = Label(self.pressframe, text="$ 10")
+        self.bidlt10.grid(row=5, column=0)
+        self.bidlt25 = Label(self.pressframe, text="$ 25")
+        self.bidlt25.grid(row=6, column=0)
+        self.bidlt50 = Label(self.pressframe, text="$ 50")
+        self.bidlt50.grid(row=7, column=0)
         
+        # Bids Vol
         self.bidv1  = Label(self.pressframe, text="Vol BTC")
+        self.bidv1.grid(row=3, column=1)
         self.bidv5  = Label(self.pressframe, text="Vol BTC")
+        self.bidv5.grid(row=4, column=1)
         self.bidv10 = Label(self.pressframe, text="Vol BTC")
+        self.bidv10.grid(row=5, column=1)
         self.bidv25 = Label(self.pressframe, text="Vol BTC")
+        self.bidv25.grid(row=6, column=1)
         self.bidv50 = Label(self.pressframe, text="Vol BTC")
+        self.bidv50.grid(row=7, column=1)
         
-        self.asklt1  = Label(self.pressframe, text="Price USD")
-        self.asklt5  = Label(self.pressframe, text="Price USD")
-        self.asklt10 = Label(self.pressframe, text="Price USD")
-        self.asklt25 = Label(self.pressframe, text="Price USD")
-        self.asklt50 = Label(self.pressframe, text="Price USD")
+        # Bids Num
+        self.bidn1 = Label(self.pressframe, text="#")
+        self.bidn1.grid(row=3, column=2)
+        self.bidn5 = Label(self.pressframe, text="#")
+        self.bidn5.grid(row=4, column=2)
+        self.bidn10 = Label(self.pressframe, text="#")
+        self.bidn10.grid(row=5, column=2)
+        self.bidn25 = Label(self.pressframe, text="#")
+        self.bidn25.grid(row=6, column=2)
+        self.bidn50 = Label(self.pressframe, text="#")
+        self.bidn50.grid(row=7, column=2)
         
+        
+        #Ask Dollars
+        self.askgt1  = Label(self.pressframe, text="$ 01")
+        self.askgt1.grid(row=3, column=3)
+        self.askgt5  = Label(self.pressframe, text="$ 05")
+        self.askgt5.grid(row=4, column=3)
+        self.askgt10 = Label(self.pressframe, text="$ 10")
+        self.askgt10.grid(row=5, column=3)
+        self.askgt25 = Label(self.pressframe, text="$ 25")
+        self.askgt25.grid(row=6, column=3)
+        self.askgt50 = Label(self.pressframe, text="$ 50")
+        self.askgt50.grid(row=7, column=3)
+        
+        #Ask Volume
         self.askv1  = Label(self.pressframe, text="Vol BTC")
+        self.askv1.grid(row=3, column=4)
         self.askv5  = Label(self.pressframe, text="Vol BTC")
+        self.askv5.grid(row=4, column=4)
         self.askv10  = Label(self.pressframe, text="Vol BTC")
+        self.askv10.grid(row=5, column=4)
         self.askv25  = Label(self.pressframe, text="Vol BTC")
+        self.askv25.grid(row=6, column=4)
         self.askv50  = Label(self.pressframe, text="Vol BTC")
+        self.askv50.grid(row=7, column=4)
+        
+        #Ask Numbers
+        self.askn1 = Label(self.pressframe, text="#")
+        self.askn1.grid(row=3, column=5)
+        self.askn5 = Label(self.pressframe, text="#")
+        self.askn5.grid(row=4, column=5)
+        self.askn10 = Label(self.pressframe, text="#")
+        self.askn10.grid(row=5, column=5)
+        self.askn25 = Label(self.pressframe, text="#")
+        self.askn25.grid(row=6, column=5)
+        self.askn50 = Label(self.pressframe, text="#")
+        self.askn50.grid(row=7, column=5)
+        
+        return
         
     def drawcm(self):
         #Description Label
@@ -202,6 +257,8 @@ class GUI:
         self.askticker.update()
         
         self.currentmid = (self.currentbid + self.currentask) / 2.0
+        self.currentmidlbl.config(text=self.currentmid)
+        self.currentmidlbl.update()
         
         return
         
@@ -226,7 +283,8 @@ class GUI:
         self.bids3.config(text="$" + str(round(orders["Bids"][2][0],2)) + " : " + str(round(orders["Bids"][2][1],2)))
         self.bids3.update()
         
-        self.analyzedepth(orders)
+        analysis = self.analyzedepth(orders)
+        self.updateanalyzedepth(analysis)
         
         return
         
@@ -297,3 +355,52 @@ class GUI:
                 pressure["-50"][1]+=i[1]
         
         return pressure
+        
+    def updateanalyzedepth(self, pressure):
+        
+        self.bidv1.config(text=round(pressure["-1"][1],3))
+        self.bidv1.update()
+        self.bidv5.config(text=round(pressure["-5"][1],3))
+        self.bidv5.update()
+        self.bidv10.config(text=round(pressure["-10"][1],3))
+        self.bidv10.update()
+        self.bidv25.config(text=round(pressure["-25"][1],3))
+        self.bidv25.update()
+        self.bidv50.config(text=round(pressure["-50"][1],3))
+        self.bidv50.update()
+        
+        self.bidn1.config(text=pressure["-1"][0])
+        self.bidn1.update()
+        self.bidn5.config(text=pressure["-5"][0])
+        self.bidn5.update()
+        self.bidn10.config(text=pressure["-10"][0])
+        self.bidn10.update()
+        self.bidn25.config(text=pressure["-25"][0])
+        self.bidn25.update()
+        self.bidn50.config(text=pressure["-50"][0])
+        self.bidn50.update()
+        
+        self.askv1.config(text=round(pressure["+1"][1],3))
+        self.askv1.update()
+        self.askv5.config(text=round(pressure["+5"][1],3))
+        self.askv5.update()
+        self.askv10.config(text=round(pressure["+10"][1],3))
+        self.askv10.update()
+        self.askv25.config(text=round(pressure["+25"][1],3))
+        self.askv25.update()
+        self.askv50.config(text=round(pressure["+50"][1],3))
+        self.askv50.update()
+        
+        self.askn1.config(text=pressure["+1"][0])
+        self.askn1.update()
+        self.askn5.config(text=pressure["+5"][0]) 
+        self.askn5.update()
+        self.askn10.config(text=pressure["+10"][0])
+        self.askn10.update()
+        self.askn25.config(text=pressure["+25"][0])
+        self.askn25.update()
+        self.askn50.config(text=pressure["+50"][0])
+        self.askn50.update()
+        
+        return
+      
