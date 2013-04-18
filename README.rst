@@ -10,13 +10,14 @@ See Below for license.
 Anything else not covered by the MIT License. is released under the dbad license.
 
 dbad License
-=====
+-------------
 
 I don't give a fuck. But I swear if you are acting like a dick with this software,
 I reserve the right to hit you in the face until you stop.
 
 MIT License
-=====
+-------------
+
 MIT License http://www.opensource.org/licenses/mit-license.php
 
 Copyright (c) 2011 Glen Zangirolami
