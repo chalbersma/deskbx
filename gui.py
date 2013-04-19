@@ -203,35 +203,32 @@ class GUI:
         return
         
     def drawhist(self):
-        # Historical Data
-        self.historydesc=Label(self.histframe,text="Market Data")
-        self.historydesc.grid(row=0, columnspan=4)
         
         # Items
         self.avg=Label(self.histframe,text="Trade 1")
         self.avgdesc=Label(self.histframe,text="24HR AVG")
-        self.avgdesc.grid(row=1, column=0, sticky='W')
-        self.avg.grid(row=1, column=2, columnspan=2, sticky='E')
+        self.avgdesc.grid(row=0, column=0, sticky='W')
+        self.avg.grid(row=0, column=2, columnspan=2, sticky='E')
         
         self.vol=Label(self.histframe,text="Trade 1")
         self.voldesc=Label(self.histframe,text="VOL USD")
-        self.voldesc.grid(row=2, column=0, sticky='W')
-        self.vol.grid(row=2, column=2, columnspan=2, sticky='E')
+        self.voldesc.grid(row=1, column=0, sticky='W')
+        self.vol.grid(row=1, column=2, columnspan=2, sticky='E')
         
         self.high=Label(self.histframe,text="Trade 1")
         self.highdesc=Label(self.histframe,text="HIGH")
-        self.highdesc.grid(row=3, column=0, sticky='W')
-        self.high.grid(row=3, column=2, columnspan=2, sticky='E')
+        self.highdesc.grid(row=2, column=0, sticky='W')
+        self.high.grid(row=2, column=2, columnspan=2, sticky='E')
         
         self.low=Label(self.histframe,text="Trade 1")
         self.lowdesc=Label(self.histframe,text="LOW")
-        self.lowdesc.grid(row=4, column=0, sticky='W')
-        self.low.grid(row=4, column=2, columnspan=2, sticky='E')
+        self.lowdesc.grid(row=3, column=0, sticky='W')
+        self.low.grid(row=3, column=2, columnspan=2, sticky='E')
         
         self.volBTC=Label(self.histframe,text="Trade 1")
         self.volBTCdesc=Label(self.histframe,text="VOL BTC")
-        self.volBTCdesc.grid(row=5, column=0, sticky='W')
-        self.volBTC.grid(row=5, column=2, columnspan=2, sticky='E')
+        self.volBTCdesc.grid(row=4, column=0, sticky='W')
+        self.volBTC.grid(row=4, column=2, columnspan=2, sticky='E')
         
 
         
@@ -239,8 +236,6 @@ class GUI:
         #self.marketupdate=Button(self.histframe,text="Update", command=self.updatehistory())
         #self.marketupdate.grid(row=8, column=0, columnspan=4)
         
-        self.note2=Label(self.histframe,text="Updated Every 16 Minutes \nfrom bitcoincharts.com")
-        self.note2.grid(row=8, column=0, columnspan=4)
 
         return
         
