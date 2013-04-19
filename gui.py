@@ -20,8 +20,14 @@ class GUI:
         frame.grid(column=0, row=0)
         
         tabone = Notebook(frame)
-        tabone.add(frame, text="Main Data")
-        tabone.grid(row=0, column=10)
+        
+        
+        self.testframe1 = LabelFrame(text="Test")
+        self.testframe2 = LabelFrame(text="Test")
+        tabone.add(self.testframe1, text="Main Data")
+        tabone.add(self.testframe2, text="Extra Data")
+        tabone.grid(row=0, column=0)
+        
         
         # Adding Content Frames
         self.cmframe = LabelFrame(frame, text="Current Market")
