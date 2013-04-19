@@ -19,24 +19,22 @@ class GUI:
         frame = Frame(master)
         frame.grid(column=0, row=0)
         
-        tabone = Notebook(frame)
-        
-        
-        self.testframe1 = LabelFrame(text="Test")
-        self.testframe2 = LabelFrame(text="Test")
-        tabone.add(self.testframe1, text="Main Data")
-        tabone.add(self.testframe2, text="Extra Data")
-        tabone.grid(row=0, column=0)
-        
+        tabs = Notebook(frame)
         
         # Adding Content Frames
-        self.cmframe = LabelFrame(frame, text="Current Market")
-        self.histframe = LabelFrame(frame, text="Historical Data")
-        self.cmframe.grid(column=0)
-        self.histframe.grid(row=0, column=1)
-        
+        self.cmframe = LabelFrame(text="Current Market")
+        self.histframe = LabelFrame(text="Historical Data")
         self.pressframe = LabelFrame(frame, text="Market Pressure")
-        self.pressframe.grid(row=1, columnspan=2)
+        self.orderframe = LabelFrame(frame, text="Orders")
+        
+        tabs.add(self.cmframe, text="Current Market")
+        tabs.add(self.histframe, text="Historical Data")
+        tabs.add(self.orderframe, text="Orders")
+        tabs.add(self.pressframe, text="Market Pressure")
+        tabs.grid(row=0, column=0)
+        
+        
+
 
         #Menu
         self.menu = Menu(master)
@@ -50,6 +48,7 @@ class GUI:
         self.drawcm()
         self.drawhist()
         self.drawpress()
+        self.draworders()
         
         # Set update loop in motion
         self.update()
@@ -156,48 +155,50 @@ class GUI:
         self.pricetickerdesc=Label(self.cmframe,text="Price")
         self.pricetickerdesc.grid(row=0, sticky='W')
         self.biddesc=Label(self.cmframe,text="Bid")
-        self.biddesc.grid(row=0,column=1, columnspan=2)
+        self.biddesc.grid(row=0,column=2, columnspan=2)
         self.biddesc=Label(self.cmframe,text="Ask")
-        self.biddesc.grid(row=0,column=3, sticky='E')
+        self.biddesc.grid(row=0,column=5, sticky='E')
         
-        #Current Orders Label
-        self.bidsdesc=Label(self.cmframe,text="Open Bids")
-        self.bidsdesc.grid(row=2, column=0, columnspan=2, sticky='W')
-        self.asksdesc=Label(self.cmframe,text="Open Asks")
-        self.asksdesc.grid(row=2, column=2, columnspan=2, sticky='E')
-    
+        
         #Current Price Label
         self.priceticker=Label(self.cmframe,text="Last...")
         self.priceticker.grid(row=1, sticky='W')
         self.bidticker=Label(self.cmframe,text="Bid...")
-        self.bidticker.grid(row=1,column=1, columnspan=2)
+        self.bidticker.grid(row=1,column=2, columnspan=2)
         self.askticker=Label(self.cmframe,text="Ask...")
-        self.askticker.grid(row=1,column=3, sticky='E')
+        self.askticker.grid(row=1,column=5, sticky='E')
         
+        return
         
+    def draworders(self):
+        
+        #Current Orders Label
+        self.bidsdesc=Label(self.orderframe,text="Open Bids")
+        self.bidsdesc.grid(row=0, column=0, columnspan=2, sticky='W')
+        self.asksdesc=Label(self.orderframe,text="Open Asks")
+        self.asksdesc.grid(row=0, column=2, columnspan=2, sticky='E')
+    
         #Top 3 Bids
-        self.bids1=Label(self.cmframe,text="$0x0")
-        self.bids1.grid(row=3, column=0, columnspan=2, sticky='W')
-        self.bids2=Label(self.cmframe,text="$0x0")
-        self.bids2.grid(row=4, column=0, columnspan=2, sticky='W')
-        self.bids3=Label(self.cmframe,text="$0x0")
-        self.bids3.grid(row=5, column=0, columnspan=2, sticky='W')
+        self.bids1=Label(self.orderframe,text="$0x0")
+        self.bids1.grid(row=1, column=0, columnspan=2, sticky='W')
+        self.bids2=Label(self.orderframe,text="$0x0")
+        self.bids2.grid(row=2, column=0, columnspan=2, sticky='W')
+        self.bids3=Label(self.orderframe,text="$0x0")
+        self.bids3.grid(row=3, column=0, columnspan=2, sticky='W')
         
         #Top 3 Asks
-        self.asks1=Label(self.cmframe,text="$0x0")
-        self.asks1.grid(row=3, column=2, columnspan=2, sticky='E')
-        self.asks2=Label(self.cmframe,text="$0x0")
-        self.asks2.grid(row=4, column=2, columnspan=2, sticky='E')
-        self.asks3=Label(self.cmframe,text="$0x0")
-        self.asks3.grid(row=5, column=2, columnspan=2, sticky='E')
+        self.asks1=Label(self.orderframe,text="$0x0")
+        self.asks1.grid(row=1, column=2, columnspan=2, sticky='E')
+        self.asks2=Label(self.orderframe,text="$0x0")
+        self.asks2.grid(row=2, column=2, columnspan=2, sticky='E')
+        self.asks3=Label(self.orderframe,text="$0x0")
+        self.asks3.grid(row=3, column=2, columnspan=2, sticky='E')
         
         #No Longer Needed
         #Update Button (Runs Update)
         #self.priceupdate=Button(frame, text="Update", command=self.update())
         #self.priceupdate.grid(row=8, columnspan=4)
         
-        self.note=Label(self.cmframe,text="Updated Every Minute\nfrom Campbx.com")
-        self.note.grid(row=8, columnspan=4)
         
         return
         
