@@ -15,8 +15,13 @@ class GUI:
 
         self.upfromme=master
 
+        
         frame = Frame(master)
         frame.grid(column=0, row=0)
+        
+        tabone = Notebook(frame)
+        tabone.add(frame, text="Main Data")
+        tabone.grid(row=0, column=10)
         
         # Adding Content Frames
         self.cmframe = LabelFrame(frame, text="Current Market")
