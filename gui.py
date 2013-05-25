@@ -42,7 +42,7 @@ class GUI:
         master.config(menu = self.menu)
         self.filemenu = Menu(self.menu)
         self.menu.add_cascade(label="File", menu=self.filemenu)
-        self.filemenu.add_command(label="Log In", menu=self.login)
+        self.filemenu.add_command(label="Log In", command=self.login)
         self.filemenu.add_command(label="Exit", command=quit)
         
         
@@ -57,8 +57,9 @@ class GUI:
         self.updatehistory()
         
     def login(self):
-        // pop up login window
-        popper = loginpopup()
+        # pop up login window
+        #popper = loginpopup()
+        pop = loginpopup(self, connection)
         
     def drawpress(self):
         self.currentmidlbl = Label(self.pressframe, text="Median...")

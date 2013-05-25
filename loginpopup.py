@@ -1,20 +1,32 @@
-import tkSimpleDialog
+from tkinter import *
+from tkinter.ttk import *
+import datetime
+import os
+from campbx import CampBX
 
-class loginpopup(tkSimpleDialog.Dialog):
-
-    def body(self, master):
-
-        Label(master, text="First:").grid(row=0)
-        Label(master, text="Second:").grid(row=1)
-
-        self.e1 = Entry(master)
-        self.e2 = Entry(master)
-
-        self.e1.grid(row=0, column=1)
-        self.e2.grid(row=1, column=1)
-        return self.e1 # initial focus
-
-    def apply(self):
-        first = string.atoi(self.e1.get())
-        second = string.atoi(self.e2.get())
-        print first, second # or something
+class loginpopup:
+    def __init__(self, master, cbxinstance):
+        self.upfromme=master
+        frame = Frame(master)
+        frame.grid(column=0, row=0)
+        
+        self.usernamelab = Label(self.frame, text="Username:")
+        self.usernamelab.grid(column=0, row=0)
+        self.passwordlab = Label(self.frame, text="Password:")
+        self.passwordlab.grid(column=0, row=1)
+        
+        self.username = StringVar()
+        self.usernameentr = Entry(frame, textvariable=self.username)
+        self.usernameentr.grid(column=1, row=0)
+        self.username.set("")
+        
+        self.password = StringVar()
+        self.passwordentr = Entry(frame, show="*", textvariable=self.password)
+        self.passwordentr.grid(column=1, row=1)
+        self.password.set("")
+        
+        self.login = Button(frame, text="login", command=logandexit)
+        self.login.grid(column=0, row=2, columnspan=2)
+        
+    def loginandexit(self):
+        print("not yet")
