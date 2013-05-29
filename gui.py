@@ -59,7 +59,8 @@ class GUI:
     def login(self):
         # pop up login window
         #popper = loginpopup()
-        pop = loginpopup(self.upfromme, self.connection)
+        roottwo = Tk()
+        pop = loginpopup(roottwo, self.connection)
         
     def drawpress(self):
         self.currentmidlbl = Label(self.pressframe, text="Median...")

@@ -16,17 +16,19 @@ class loginpopup:
         self.passwordlab.grid(column=0, row=1)
         
         self.username = StringVar()
-        self.usernameentr = Entry(lframe, textvariable=self.username)
+        self.usernameentr = Entry(self.lframe, textvariable=self.username)
         self.usernameentr.grid(column=1, row=0)
-        self.username.set("")
+        self.username.set(cbxinstance.username)
         
         self.password = StringVar()
-        self.passwordentr = Entry(lframe, show="*", textvariable=self.password)
+        self.passwordentr = Entry(self.lframe, show="*", textvariable=self.password)
         self.passwordentr.grid(column=1, row=1)
-        self.password.set("")
+        self.password.set(cbxinsance.password)
         
-        self.login = Button(lframe, text="login", command=logandexit)
+        self.login = Button(self.lframe, text="login", command=self.loginandexit)
         self.login.grid(column=0, row=2, columnspan=2)
         
     def loginandexit(self):
+        cbxinstance.username = username
+        cbxinstance.password = password
         print("not yet")
