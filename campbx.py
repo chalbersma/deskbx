@@ -49,3 +49,10 @@ class CampBX(object):
                 if (i['symbol'] == 'cbxUSD'):
                     camphistory=i
         return camphistory
+        
+    def setcred(self, creds):
+        self.username = creds["username"]
+        self.password = creds["password"]
+        
+        return
+        

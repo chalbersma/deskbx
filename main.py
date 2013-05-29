@@ -8,7 +8,7 @@ root = Tk()
 
 app = GUI(root)
 
-root.title("Bitcoin Price")
+root.title("Deskbx")
 root.mainloop()
 
 
