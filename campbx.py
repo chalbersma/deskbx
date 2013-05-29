@@ -50,6 +50,17 @@ class CampBX(object):
                     camphistory=i
         return camphistory
         
+    def afunds(self):
+        afundsurl = self.api_url + "myfunds.php"
+        mecreds = { "user" : self.username , "pass" : self.password }
+        data = urllib.parse.urlencode(mecreds)
+        bindata = data.encode('utf-8')
+        request = urllib.request.Request(afundsurl, bindata)
+        response = urllib.request.urlopen(request)
+        afunds = json.loads((response.read().decode('utf-8')))
+        print(afunds)
+        return afunds
+        
     def setcred(self, creds):
         self.username = creds["username"]
         self.password = creds["password"]

@@ -27,11 +27,13 @@ class GUI:
         self.histframe = LabelFrame(text="Historical Data")
         self.pressframe = LabelFrame(frame, text="Market Pressure")
         self.orderframe = LabelFrame(frame, text="Orders")
+        self.fundsframe = LabelFrame(frame, text="Funds")
         
         tabs.add(self.cmframe, text="Current Market")
         tabs.add(self.histframe, text="Historical Data")
         tabs.add(self.orderframe, text="Orders")
         tabs.add(self.pressframe, text="Market Pressure")
+        tabs.add(self.fundsframe, text="Funds")
         tabs.grid(row=0, column=0)
         
         
@@ -51,16 +53,71 @@ class GUI:
         self.drawhist()
         self.drawpress()
         self.draworders()
+        self.drawfunds()
         
         # Set update loop in motion
         self.update()
         self.updatehistory()
+    
+    def updateaccount(self):
+        self.login()
+        funds = self.connection.afunds()
+        self.allusd.config(text=funds["Total USD"])
+        self.liquidusd.config(text=funds["Liquid USD"])
+        self.marginusd.config(text=funds["Margin Account USD"])
+        self.allbtc.config(text=funds["Total BTC"])
+        self.liquidbtc.config(text=funds["Liquid BTC"])
+        self.marginbtc.config(text=funds["Margin Account BTC"])
+        
+        self.allusd.update()
+        self.liquidusd.update()
+        self.marginusd.update()
+        self.allbtc.update()
+        self.liquidbtc.update()
+        self.marginbtc.update()
+        
+        return
         
     def login(self):
         # pop up login window
         #popper = loginpopup()
         roottwo = Tk()
         pop = loginpopup(roottwo, self.connection, self)
+        return
+    
+    def drawfunds(self):
+        self.usddesc = Label(self.fundsframe, text="USD")
+        self.usddesc.grid(row=1, column=0)
+        self.btcdesc = Label(self.fundsframe, text="BTC")
+        self.btcdesc.grid(row=2, column=0)
+        self.filler = Label(self.fundsframe, text="X")
+        self.filler.grid(row=0, column=0)
+        self.totaldesc = Label(self.fundsframe, text="T")
+        self.totaldesc.grid(row=0, column=1, sticky=W)
+        self.liquiddesc = Label(self.fundsframe, text="L")
+        self.totaldesc.grid(row=0, column=2)
+        self.margindesc = Label(self.fundsframe, text="M")
+        self.margindesc.grid(row=0, column=3)
+        
+        self.allusd = Label(self.fundsframe, text="0")
+        self.allusd.grid(row=1, column=1)
+        self.allbtc = Label(self.fundsframe, text="0")
+        self.allbtc.grid(row=2, column=1)
+        
+        self.liquidusd = Label(self.fundsframe, text="0")
+        self.liquidusd.grid(row=1, column=2)
+        self.liquidbtc = Label(self.fundsframe, text="0")
+        self.liquidbtc.grid(row=2, column=2)
+        
+        self.marginusd = Label(self.fundsframe, text="0")
+        self.marginusd.grid(row=1, column=3)
+        self.marginbtc = Label(self.fundsframe, text="0")
+        self.marginbtc.grid(row=2, column=3)
+        
+        self.fundsupdate = Button(self.fundsframe, text="Update", command=self.updateaccount)
+        self.fundsupdate.grid(row=3, column=0, columnspan=4)
+        
+        return
         
     def drawpress(self):
         self.currentmidlbl = Label(self.pressframe, text="Median...")
